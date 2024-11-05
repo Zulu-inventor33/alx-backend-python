@@ -6,9 +6,7 @@ from client import GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """
-    Test class for GithubOrgClient.
-    """
+    """Unit tests for GithubOrgClient class."""
 
     @patch("client.GithubOrgClient.get_json")
     @parameterized.expand([
@@ -16,9 +14,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc",),
     ])
     def test_org(self, org_name, mock_get_json):
-        """
-        Test that GithubOrgClient.org returns the correct value.
-        """
+        """Test that GithubOrgClient.org returns the correct value."""
         test_payload = {"org": org_name}
         mock_get_json.return_value = test_payload
         client = GithubOrgClient(org_name)
@@ -35,9 +31,7 @@ class TestGithubOrgClient(unittest.TestCase):
     )
     @patch("client.GithubOrgClient.get_json")
     def test_public_repos(self, mock_get_json, mock_public_repos_url):
-        """
-        Test that public_repos returns the expected repos.
-        """
+        """Test that public_repos returns the expected repos."""
         mock_get_json.return_value = {"repos": ["repo1", "repo2"]}
         client = GithubOrgClient("google")
 
@@ -51,9 +45,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "other_license"}}, "my_license", False),
     ])
     def test_has_license(self, repo, license_key, expected):
-        """
-        Test has_license method.
-        """
+        """Test has_license method."""
         client = GithubOrgClient("google")
         result = client.has_license(repo, license_key)
         self.assertEqual(result, expected)
